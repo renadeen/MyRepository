@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:layout_width="fill_parent"
+			  android:layout_height="wrap_content"
+		android:orientation="vertical">
+	<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="fill_parent"
+			android:orientation="horizontal"
+			>
+		<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="№ счета"
+				style="@style/t_emphasized"/>
+		<EditText
+				android:id="@+id/number"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:layout_weight="1"/>
+	</LinearLayout>
+	<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="fill_parent"
+			android:orientation="horizontal"
+			>
+		<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="Дата "
+				style="@style/t_emphasized"/>
+		<TextView
+				android:id="@+id/date"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				/>
+		<Button
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="Изменить"
+				android:onClick="pickDate"
+				/>
+	</LinearLayout>
+	<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="fill_parent"
+			android:orientation="horizontal"
+			>
+		<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="Контрагент"
+				style="@style/t_emphasized"/>
+		<EditText
+				android:id="@+id/contractorName"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:layout_weight="1"
+				android:inputType="text"/>
+	</LinearLayout>
+
+</LinearLayout>

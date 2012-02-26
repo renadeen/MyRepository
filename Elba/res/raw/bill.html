@@ -1,0 +1,442 @@
+﻿<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Bill</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			body {
+				font: normal normal 10pt 'Arial';
+				margin: 1cm;
+			}
+
+			.wrap {
+				width: 18cm;
+			}
+
+			/** @section tables */
+
+			table {
+				border-collapse: collapse;
+				border-spacing: 0;
+				table-layout: fixed;
+				width: 100%;
+			}
+
+			td {
+				text-align: left;
+				vertical-align: top;
+			}
+
+			th {
+				font-weight: normal;
+				text-align: center;
+				vertical-align: middle;
+			}
+
+			.dataTable {
+				border: 0.05cm solid #000000;
+			}
+
+			.dataTable td {
+				padding: 0.1cm;
+			}
+
+			.br {
+				border-right: 0.05cm solid #000000;
+			}
+
+			.bb {
+				border-bottom: 0.05cm solid #000000;
+			}
+
+			.bl {
+				border-left: 0.05cm solid #000000;
+			}
+
+			.numericCell {
+				text-align: right;
+			}
+
+			.textCell {
+				text-align: left;
+			}
+
+			/** @section credentials */
+
+			.credentials {
+				margin-bottom: 0.2cm;
+				width: 11cm;
+			}
+
+			.credentials p {
+				margin-bottom: 0.1cm;
+			}
+
+			/** @section paymentOrder */
+
+			.paymentOrder {
+				margin-bottom: 0.7cm;
+			}
+
+			.paymentOrder p {
+				font-size: 8pt;
+				margin-bottom: 0.1cm;
+			}
+
+			.paymentOrder .leftCol,
+			.paymentOrder .rightCol {
+				width: 8.2cm;
+			}
+
+			.paymentOrder .comment {
+				font-size: 8pt;
+			}
+
+			.paymentOrder .innkpp {
+				padding: 0;
+			}
+
+			.paymentOrder .inn,
+			.paymentOrder .kpp {
+				float: left;
+				margin-top: -0.1cm;
+				margin-right: -50%;
+				padding: 0.1cm;
+				position: relative;
+				top: 0.1cm;
+				width: 50%;
+			}
+
+			.paymentOrder .kpp {
+				left: 50%;
+			}
+
+			/** @section bill */
+
+			.bill {
+				margin-bottom: 0.7cm;
+			}
+
+			.bill h1 {
+				font-size: 14pt;
+				margin-bottom: 0.7cm;
+				text-align: center;
+			}
+
+			.bill table {
+				border: none;
+			}
+
+			.bill td, th {
+				padding-top: 0.2cm;
+				padding-bottom: 0.2cm;
+			}
+
+			.bill tbody td, .bill thead th {
+				border: 0.05cm solid #000000;
+			}
+
+			.bill .numberCol {
+				width: 1cm;
+			}
+
+			.bill .countCol,
+			.bill .dimensionsCol {
+				width: 1.5cm;
+			}
+
+			.bill .priceCol,
+			.bill .summCol {
+				width: 2.5cm;
+			}
+
+			.bill .numberCell,
+			.bill .dimensionsCell {
+				text-align: center;
+			}
+
+			.bill .totalCell {
+				font-weight: bold;
+				padding-top: 0.1cm;
+				padding-bottom: 0.1cm;
+			}
+
+			.bill .contrgentCredentials {
+				font-weight: bold;
+				margin-bottom: 0.7cm;
+			}
+
+			.bill .contrgentCredentials label {
+				font-weight: normal;
+				display: inline-block;
+				width: 2.5cm;
+			}
+
+			/** @section summary */
+
+			.summary .separatorCol {
+				width: 0.5cm;
+			}
+
+			.summary p {
+				border-bottom: 0.07cm solid #000000;
+				margin-bottom: 0.7cm;
+				padding-bottom: 0.4cm;
+			}
+
+			.summary .positionCol {
+				width: 7cm;
+			}
+
+			.summary .signCol {
+				width: 3.7cm;
+			}
+
+			.summary .infoCell {
+				text-align: center;
+			}
+
+			.summary .commentRow td {
+				font-size: 8pt;
+				height: 1cm;
+				text-align: center;
+			}
+
+			.summary th {
+				text-align: left;
+				font-weight: bold;
+				padding: 0;
+				vertical-align: top;
+			}
+
+			.summary p {
+				font-weight: bold;
+				padding-left: 4.7cm;
+			}
+
+			.summary p label {
+				display: inline-block;
+				margin-left: -4.7cm;
+				width: 4.7cm;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<div class="credentials">
+				<p>{{IPorOOO}} {{ selfName }}</p>
+				<p>{{ address }}</p>
+				<p>Телефон: {{ phoneNumber }}</p>
+			</div>
+			<div class="paymentOrder">
+				<p>Образец заполнения платежного поручения</p>
+				<table class="dataTable">
+					<colgroup>
+						<col class="leftCol" />
+						<col />
+						<col class="rightCol" />
+					</colgroup>
+					<tbody>
+						<tr>
+							<td class="br" rowspan="2">
+								{{ bankName }}
+							</td>
+							<td class="bb">
+								БИК
+							</td>
+							<td class="bl">
+								{{ bankBIK }}
+							</td>
+						</tr>
+						<tr>
+							<td>Сч. №</td>
+							<td class="bl">{{ ks }}</td>
+						</tr>
+						<tr class="comment">
+							<td class="bb br">
+								Банк получателя
+							</td>
+							<td class="bb">&nbsp;</td>
+							<td class="bb bl">&nbsp;</td>
+						</tr>
+						<tr>
+							<td class="bb br innkpp">
+								<div class="inn br">
+									ИНН &nbsp; {{ INN }}
+								</div>
+								<div class="kpp">
+									КПП &nbsp; {{ KPP }}
+								</div>
+							</td>
+							<td>Сч. №</td>
+							<td class="bl">{{ rs }}</td>
+						</tr>
+						<tr>
+							<td class="br" rowspan="2">
+								{{IPorOOO}} {{ selfName }}
+							</td>
+							<td>&nbsp;</td>
+							<td class="bl">&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td class="bl">&nbsp;</td>
+						</tr>
+						<tr class="comment">
+							<td class="br">
+								Получатель
+							</td>
+							<td>&nbsp;</td>
+							<td class="bl">&nbsp;</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="bill">
+				<h1>Счет на оплату № {{ number }} от {{ date }}</h1>
+
+				<div class="contrgentCredentials">
+					<p><label>Поставщик:</label> {{IPorOOO}} {{ selfName }}</p>
+					<p><label>Покупатель:</label> {{ contractorName }}</p>
+				</div>
+
+				<table class="dataTable">
+					<colgroup>
+						<col class="numberCol" />
+						<col />
+						<col class="countCol" />
+						<col class="dimensionsCol" />
+						<col class="priceCol" />
+						<col class="summCol" />
+					</colgroup>
+					<thead>
+						<tr>
+							<th>№</th>
+							<th>Товары (работы, услуги)</th>
+							<th>Кол-во</th>
+							<th>Ед.</th>
+							<th>Цена</th>
+							<th>Сумма</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!--{{#billItems}}-->
+						<tr>
+							<td class="numberCell">{{-index}}</td>
+							<td class="textCell">
+								{{name}}
+							</td>
+							<td class="numericCell">{{quantity}}</td>
+							<td class="dimensionsCell">{{unit}}</td>
+							<td class="numericCell">{{price}}</td>
+							<td class="numericCell">{{sum}}</td>
+						</tr>
+						<!-- {{/billItems}} -->
+					</tbody>
+					<tfoot>
+						<tr>
+							<td  class="numericCell totalCell" colspan="5">
+								Итого:
+							</td>
+							<td class="numericCell totalCell">
+								{{ sum }}
+							</td>
+						</tr>
+						<tr>
+							<td  class="numericCell totalCell" colspan="5">
+								В том числе НДС:
+							</td>
+							<td class="numericCell totalCell">
+								Без НДС
+							</td>
+						</tr>
+						<tr>
+							<td  class="numericCell totalCell" colspan="5">
+								Всего к оплате:
+							</td>
+							<td class="numericCell totalCell">
+								{{ sum }}
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+
+			<div class="summary">
+				<p><label>Всего к оплате на сумму</label><span>{{ summaryWord }}</span></p>
+				<table>
+					<colgroup>
+						<col />
+						<col class="separatorCol" />
+						<col class="positionCol" />
+						<col class="separatorCol" />
+						<col class="signCol" />
+						<col class="separatorCol" />
+						<col class="signCol" />
+					</colgroup>
+					<tbody>
+						<tr>
+							<th>Поставщик</th>
+							<td>&nbsp;</td>
+							<td class="bb infoCell">
+								{{IPorPROFESSION}}
+							</td>
+							<td>&nbsp;</td>
+							<td class="bb infoCell">
+								&nbsp;
+							</td>
+							<td>&nbsp;</td>
+							<td class="bb infoCell">
+								
+							</td>
+						</tr>
+						<tr class="commentRow">
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>
+								должность
+							</td>
+							<td>&nbsp;</td>
+							<td>
+								подпись
+							</td>
+							<td>&nbsp;</td>
+							<td>
+								расшифровка подписи
+							</td>
+						</tr>
+						<tr>
+							<th colspan="3">Главный (старший бухглатер)</th>
+							<td>&nbsp;</td>
+							<td class="bb infoCell">
+								&nbsp;
+							</td>
+							<td>&nbsp;</td>
+							<td class="bb infoCell">
+								
+							</td>
+						</tr>
+						<tr class="commentRow">
+							<td colspan="3">&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>
+								подпись
+							</td>
+							<td>&nbsp;</td>
+							<td>
+								расшифровка подписи
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+	</body>
+</html>

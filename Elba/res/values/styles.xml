@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MyTheme" parent="android:Theme.Light">
+        <item name="android:textAppearance">@style/MyDefaultTextAppearance</item>
+    </style>
+
+    <style name="MyDefaultTextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#333</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="t_emphasized" parent="@android:style/TextAppearance">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#333</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="text_large_wh">
+        <item name="android:textSize">18sp</item>
+        <item name="android:shadowDy">1.0</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:shadowColor">#888</item>
+    </style>
+
+    <style name="list_item_wh" parent="text_large_wh">
+        <item name="android:paddingTop">15sp</item>
+        <item name="android:paddingBottom">15sp</item>
+        <item name="android:paddingLeft">5sp</item>
+        <item name="android:paddingRight">5sp</item>
+    </style>
+</resources>

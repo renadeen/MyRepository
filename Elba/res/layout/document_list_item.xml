@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_height="wrap_content"
+              android:layout_width="fill_parent"
+              android:paddingTop="15sp"
+              android:paddingBottom="15sp"
+              android:paddingLeft="5sp"
+              android:paddingRight="5sp"
+              android:orientation="vertical"
+        >
+    <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            >
+        <TextView
+                android:id="@+id/contractorName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/t_emphasized"
+                />
+        <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:gravity="right">
+            <TextView
+                    android:id="@+id/sum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    style="@style/t_emphasized"
+                    />
+            <TextView
+                    android:id="@+id/sum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    style="@style/t_emphasized"
+                    android:text=" р."
+                    />
+
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            >
+        <TextView
+                android:id="@+id/huj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Счет № "
+                android:layout_gravity="left"/>
+        <TextView
+                android:id="@+id/number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" от "
+                />
+        <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+    </LinearLayout>
+
+</LinearLayout>
