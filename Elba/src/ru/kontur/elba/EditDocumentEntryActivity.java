@@ -1,11 +1,12 @@
-package com.skbkontur.elba;
+package ru.kontur.elba;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import com.skbkontur.elba.datalayer.LocaleService;
-import com.skbkontur.elba.domainmodel.BillItem;
+import com.skbkontur.elba.R;
+import ru.kontur.elba.datalayer.LocaleService;
+import ru.kontur.elba.domainmodel.BillItem;
 
 public class EditDocumentEntryActivity extends Activity {
 	private EditText nameInput;

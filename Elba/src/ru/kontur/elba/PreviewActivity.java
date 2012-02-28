@@ -1,4 +1,4 @@
-package com.skbkontur.elba;
+package ru.kontur.elba;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.webkit.WebView;
 import com.samskivert.mustache.Mustache;
 import com.samskivert.mustache.Template;
-import com.skbkontur.elba.domainmodel.Bill;
+import ru.kontur.elba.domainmodel.Bill;
 
 import java.io.*;
 
@@ -112,7 +112,7 @@ public class PreviewActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		File directory = new File(Environment.getExternalStorageDirectory(), "/Android/data/skbkontur.elba/files/");
+		File directory = new File(Environment.getExternalStorageDirectory(), "/Android/data/ru.kontur.elba/files/");
 		Bitmap b = Bitmap.createBitmap(1130, 1600, Bitmap.Config.RGB_565);
 		Canvas canvas = new Canvas(b);
 		view.draw(canvas);

@@ -1,4 +1,4 @@
-package com.skbkontur.elba.datalayer;
+package ru.kontur.elba.datalayer;
 
 public class BillItemTable implements Table{
 	public static final String TABLE_NAME = "BillItem";

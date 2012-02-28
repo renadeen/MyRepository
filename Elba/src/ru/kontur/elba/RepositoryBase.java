@@ -1,12 +1,12 @@
-package com.skbkontur.elba;
+package ru.kontur.elba;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import com.skbkontur.elba.datalayer.ElbaDatabase;
-import com.skbkontur.elba.datalayer.Entity;
-import com.skbkontur.elba.datalayer.Table;
+import ru.kontur.elba.datalayer.ElbaDatabase;
+import ru.kontur.elba.datalayer.Entity;
+import ru.kontur.elba.datalayer.Table;
 
 import java.math.BigDecimal;
 

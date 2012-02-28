@@ -1,10 +1,11 @@
-package com.skbkontur.elba;
+package ru.kontur.elba;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import com.skbkontur.elba.datalayer.ElbaDatabase;
+import com.skbkontur.elba.R;
+import ru.kontur.elba.datalayer.ElbaDatabase;
 
 public class LogonActivity extends Activity {
     /** Called when the activity is first created. */

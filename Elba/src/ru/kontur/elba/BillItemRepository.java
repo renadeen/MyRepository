@@ -1,11 +1,11 @@
-package com.skbkontur.elba;
+package ru.kontur.elba;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
-import com.skbkontur.elba.datalayer.BillItemTable;
-import com.skbkontur.elba.domainmodel.BillItem;
+import ru.kontur.elba.datalayer.BillItemTable;
+import ru.kontur.elba.domainmodel.BillItem;
 
 import java.util.ArrayList;
 

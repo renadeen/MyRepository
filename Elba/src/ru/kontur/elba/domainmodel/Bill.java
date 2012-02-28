@@ -1,6 +1,6 @@
-package com.skbkontur.elba.domainmodel;
+package ru.kontur.elba.domainmodel;
 
-import com.skbkontur.elba.datalayer.Entity;
+import ru.kontur.elba.datalayer.Entity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

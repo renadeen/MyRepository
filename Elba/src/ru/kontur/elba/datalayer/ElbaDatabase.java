@@ -1,4 +1,4 @@
-package com.skbkontur.elba.datalayer;
+package ru.kontur.elba.datalayer;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

@@ -1,4 +1,4 @@
-package com.skbkontur.elba.datalayer;
+package ru.kontur.elba.datalayer;
 
 public class BillTable implements Table {
 

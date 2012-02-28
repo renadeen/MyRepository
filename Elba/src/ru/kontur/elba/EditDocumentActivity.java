@@ -1,4 +1,4 @@
-package com.skbkontur.elba;
+package ru.kontur.elba;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -9,8 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
-import com.skbkontur.elba.datalayer.LocaleService;
-import com.skbkontur.elba.domainmodel.Bill;
+import com.skbkontur.elba.R;
+import ru.kontur.elba.datalayer.LocaleService;
+import ru.kontur.elba.domainmodel.Bill;
 
 import java.math.BigDecimal;
 import java.util.Date;

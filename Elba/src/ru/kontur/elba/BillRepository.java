@@ -1,11 +1,11 @@
-package com.skbkontur.elba;
+package ru.kontur.elba;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
-import com.skbkontur.elba.datalayer.BillTable;
-import com.skbkontur.elba.domainmodel.Bill;
+import ru.kontur.elba.datalayer.BillTable;
+import ru.kontur.elba.domainmodel.Bill;
 
 import java.util.Date;
 

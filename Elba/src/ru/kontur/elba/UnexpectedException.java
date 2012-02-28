@@ -1,4 +1,4 @@
-package com.skbkontur.elba;
+package ru.kontur.elba;
 
 import android.content.Context;
 import android.os.Looper;

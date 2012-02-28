@@ -1,4 +1,4 @@
-package com.skbkontur.elba.datalayer;
+package ru.kontur.elba.datalayer;
 
 import java.math.BigDecimal;
 import java.text.*;

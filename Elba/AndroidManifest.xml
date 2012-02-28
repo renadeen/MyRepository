@@ -1,29 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.skbkontur.elba"
+      package="ru.kontur.elba"
       android:versionCode="1"
       android:versionName="1.0">
     <uses-sdk android:minSdkVersion="7" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:theme="@style/MyTheme">
-        <activity android:name=".LogonActivity"
+        <activity android:name="ru.kontur.elba.LogonActivity"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-		<activity android:name=".DocumentListActivity">
+		<activity android:name="ru.kontur.elba.DocumentListActivity">
 		</activity>
-		<activity android:name=".EditDocumentActivity">
+		<activity android:name="ru.kontur.elba.EditDocumentActivity">
 		</activity>
-		<activity android:name=".EditDocumentEntryActivity"/>
-		<activity android:name=".PreviewActivity">
-			<!--<intent-filter>-->
-				<!--<action android:name="android.intent.action.MAIN" />-->
-				<!--<category android:name="android.intent.category.LAUNCHER" />-->
-			<!--</intent-filter>-->
+		<activity android:name="ru.kontur.elba.EditDocumentEntryActivity"/>
+		<activity android:name="ru.kontur.elba.PreviewActivity">
+
 		</activity>
 	</application>
 </manifest>

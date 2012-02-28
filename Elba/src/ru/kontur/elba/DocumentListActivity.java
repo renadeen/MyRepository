@@ -1,4 +1,4 @@
-package com.skbkontur.elba;
+package ru.kontur.elba;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,8 +11,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import com.skbkontur.elba.datalayer.BillTable;
-import com.skbkontur.elba.datalayer.LocaleService;
+import ru.kontur.elba.datalayer.BillTable;
+import ru.kontur.elba.datalayer.LocaleService;
 
 import java.math.BigDecimal;
 import java.util.Date;
