@@ -11,6 +11,7 @@ import android.webkit.WebView;
 import com.samskivert.mustache.Mustache;
 import com.samskivert.mustache.Template;
 import ru.kontur.elba.domainmodel.Bill;
+import ru.kontur.elba.domainmodel.Organization;
 
 import java.io.*;
 
@@ -25,12 +26,11 @@ public class PreviewActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		BillRepository billRepository = new BillRepository(this);
 		Bill bill = billRepository.getById(getIntent().getIntExtra("documentId", 0));
-		view = new WebView(this);
 		String result = renderTemplate(getTemplate(), bill);
+		view = new WebView(this);
 //		saveToFile(result, "huj.htm");
 		view.loadDataWithBaseURL("about:blank", result, "text/html", "UTF-8", null);
 		setContentView(view);
-
 	}
 
 	//	public Bitmap getBitmap(final WebView w, int containerWidth, int containerHeight, final String baseURL, final String content) {
@@ -85,9 +85,13 @@ public class PreviewActivity extends Activity {
 		}
 	}
 
-	private String renderTemplate(String template, Bill bill) {
+	private String renderTemplate(String template, final Bill pbill) {
 		Template compile = Mustache.compiler().defaultValue("huj").compile(template);
-		return compile.execute(bill);
+		final Organization organization = new OrganizationRepository().Get();
+		return compile.execute(new Object(){
+			Bill bill = pbill;
+			Organization me = organization;
+		} );
 	}
 
 	private String getTemplate() {

@@ -1,6 +1,7 @@
 package ru.kontur.elba.domainmodel;
 
 import ru.kontur.elba.datalayer.Entity;
+import ru.kontur.elba.datalayer.LocaleService;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -25,6 +26,10 @@ public class Bill implements Entity {
 //		result.put("sum", Double.toString(sum));
 //		return result;
 //    }
+
+	public String getFormattedDate() {
+		return LocaleService.getInstance().formatDate(date);
+	}
 
 	@Override
 	public int getId() {

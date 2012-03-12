@@ -228,10 +228,11 @@
 	</head>
 	<body>
 		<div class="wrap">
+			{{#me}}
 			<div class="credentials">
-				<p>{{IPorOOO}} {{ selfName }}</p>
-				<p>{{ address }}</p>
-				<p>Телефон: {{ phoneNumber }}</p>
+				<p>{{LegalName}}</p>
+				<p>{{address}}</p>
+				<p>Телефон: {{phone}}</p>
 			</div>
 			<div class="paymentOrder">
 				<p>Образец заполнения платежного поручения</p>
@@ -244,18 +245,18 @@
 					<tbody>
 						<tr>
 							<td class="br" rowspan="2">
-								{{ bankName }}
+								{{bankName}}
 							</td>
 							<td class="bb">
 								БИК
 							</td>
 							<td class="bl">
-								{{ bankBIK }}
+								{{bankBik}}
 							</td>
 						</tr>
 						<tr>
 							<td>Сч. №</td>
-							<td class="bl">{{ ks }}</td>
+							<td class="bl">{{ bankCorrAccount }}</td>
 						</tr>
 						<tr class="comment">
 							<td class="bb br">
@@ -267,18 +268,18 @@
 						<tr>
 							<td class="bb br innkpp">
 								<div class="inn br">
-									ИНН &nbsp; {{ INN }}
+									ИНН &nbsp; {{inn}}
 								</div>
 								<div class="kpp">
-									КПП &nbsp; {{ KPP }}
+									КПП &nbsp; {{kpp}}
 								</div>
 							</td>
 							<td>Сч. №</td>
-							<td class="bl">{{ rs }}</td>
+							<td class="bl">{{accountNumber}}</td>
 						</tr>
 						<tr>
 							<td class="br" rowspan="2">
-								{{IPorOOO}} {{ selfName }}
+								{{LegalName}}
 							</td>
 							<td>&nbsp;</td>
 							<td class="bl">&nbsp;</td>
@@ -297,15 +298,17 @@
 					</tbody>
 				</table>
 			</div>
-
+			{{/me}}
 			<div class="bill">
-				<h1>Счет на оплату № {{ number }} от {{ date }}</h1>
-
+				{{#bill}}
+				<h1>Счет на оплату № {{ number }} от {{ FormattedDate }}</h1>
+				{{/bill}}
 				<div class="contrgentCredentials">
-					<p><label>Поставщик:</label> {{IPorOOO}} {{ selfName }}</p>
+					<p><label>Поставщик:</label> {{me.getLegalName}}</p>
+			{{#bill}}
 					<p><label>Покупатель:</label> {{ contractorName }}</p>
 				</div>
-
+				
 				<table class="dataTable">
 					<colgroup>
 						<col class="numberCol" />
@@ -366,8 +369,9 @@
 						</tr>
 					</tfoot>
 				</table>
+			{{/bill}}
 			</div>
-
+			
 			<div class="summary">
 				<p><label>Всего к оплате на сумму</label><span>{{ summaryWord }}</span></p>
 				<table>

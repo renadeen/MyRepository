@@ -40,7 +40,7 @@ public class BillRepository extends RepositoryBase<Bill> {
 		Bill bill = newBill();
 		bill.id = mCursor.getInt(mCursor.getColumnIndexOrThrow(BillTable.KEY_ROWID));
 		bill.number = mCursor.getString(mCursor.getColumnIndexOrThrow(BillTable.KEY_NUMBER));
-		bill.sum = readDecimal(mCursor,BillTable.KEY_SUM);
+		bill.sum = readDecimal(mCursor, BillTable.KEY_SUM);
 		bill.date = new Date(mCursor.getLong(mCursor.getColumnIndexOrThrow(BillTable.KEY_DATE)));
 		bill.contractorName = mCursor.getString(mCursor.getColumnIndexOrThrow(BillTable.KEY_CUSTOMERNAME));
 		bill.billItems = new BillItemRepository(context).selectEntriesOfBill(bill.id);

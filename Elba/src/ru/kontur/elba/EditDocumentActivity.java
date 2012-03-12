@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
-import com.skbkontur.elba.R;
 import ru.kontur.elba.datalayer.LocaleService;
 import ru.kontur.elba.domainmodel.Bill;
 
@@ -26,7 +25,7 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 	private final DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
 		public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 			bill.date = new Date(year - 1900, month, day); // ппц гавнище этот java.util.date
-			dateView.setText(LocaleService.getInstance().formatDate(bill.date));
+			dateView.setText(bill.getFormattedDate());
 		}
 	};
 	private EditText numberInput;
@@ -79,7 +78,7 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 		numberInput.setText(bill.number);
 		sumInput.setText(LocaleService.getInstance().formatCurrency(sum(bill)));
 		((EditText) findViewById(R.id.contractorName)).setText(bill.contractorName);
-		dateView.setText(LocaleService.getInstance().formatDate(bill.date));
+		dateView.setText(bill.getFormattedDate());
 		InterestingAdapter adapter = new InterestingAdapter(this, R.layout.edit_document_list_item, bill.billItems);
 		list.setAdapter(adapter);
 	}
