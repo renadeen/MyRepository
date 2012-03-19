@@ -10,10 +10,12 @@ import android.view.MenuItem;
 import android.webkit.WebView;
 import com.samskivert.mustache.Mustache;
 import com.samskivert.mustache.Template;
+import ru.kontur.elba.core.NumberService;
 import ru.kontur.elba.domainmodel.Bill;
 import ru.kontur.elba.domainmodel.Organization;
 
 import java.io.*;
+import java.util.HashMap;
 
 public class PreviewActivity extends Activity {
 
@@ -85,13 +87,21 @@ public class PreviewActivity extends Activity {
 		}
 	}
 
-	private String renderTemplate(String template, final Bill pbill) {
+	private String renderTemplate(String template, final Bill bill) {
 		Template compile = Mustache.compiler().defaultValue("huj").compile(template);
 		final Organization organization = new OrganizationRepository().Get();
-		return compile.execute(new Object(){
-			Bill bill = pbill;
-			Organization me = organization;
-		} );
+		final PrintData printData = new PrintData() {{
+			sumInWords = NumberService.getInstance().sumInWords(bill.sum);
+		}};
+		return compile.execute(new HashMap<String, Object>() {{
+			put("bill", bill);
+			put("me", organization);
+			put("printData", printData);
+		}});
+	}
+
+	private class PrintData {
+		public String sumInWords;
 	}
 
 	private String getTemplate() {
