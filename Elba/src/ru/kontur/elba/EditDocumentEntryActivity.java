@@ -25,7 +25,7 @@ public class EditDocumentEntryActivity extends Activity {
 		unitInput = (EditText) findViewById(R.id.unit);
 		priceInput = (EditText) findViewById(R.id.price);
 
-		billItemRepository = new BillItemRepository(this);
+		billItemRepository = ((ElbaApplication) getApplication()).getBillItemRepository();
 		Bundle extras = getIntent().getExtras();
 		if (extras.containsKey("billItemId"))
 			billItem = billItemRepository.getById(extras.getInt("billItemId"));

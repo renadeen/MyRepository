@@ -26,7 +26,7 @@ public class PreviewActivity extends Activity {
 
 		Thread.currentThread().setUncaughtExceptionHandler(new UnexpectedException(this));
 		super.onCreate(savedInstanceState);
-		BillRepository billRepository = new BillRepository(this);
+		BillRepository billRepository = ((ElbaApplication) getApplication()).getBillRepository();
 		Bill bill = billRepository.getById(getIntent().getIntExtra("documentId", 0));
 		String result = renderTemplate(getTemplate(), bill);
 		view = new WebView(this);

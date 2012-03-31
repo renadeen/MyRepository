@@ -30,17 +30,8 @@ public class DocumentListActivity extends Activity implements AdapterView.OnItem
 		list.setOnItemClickListener(this);
 		list.setEmptyView(findViewById(android.R.id.empty));
 		list.addHeaderView(getLayoutInflater().inflate(R.layout.header, list, false));
-		billRepository = new BillRepository(this);
-//		billRepository.createTestBill("22");
-//		billRepository.createTestBill("33");
+		billRepository = ((ElbaApplication) getApplication()).getBillRepository();
 		refresh();
-	}
-
-	@Override
-	protected void onDestroy() {
-		if (billRepository != null)
-			billRepository.close();
-		super.onDestroy();
 	}
 
 	public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

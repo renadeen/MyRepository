@@ -7,12 +7,10 @@ import android.view.View;
 import ru.kontur.elba.datalayer.ElbaDatabase;
 
 public class LogonActivity extends Activity {
-    /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-		Thread.currentThread().setUncaughtExceptionHandler(new UnexpectedException(this));
 	}
 
     public void login(View view){

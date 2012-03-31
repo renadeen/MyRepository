@@ -16,25 +16,28 @@ public class BillItemRepository extends RepositoryBase<BillItem> {
 
 	public ArrayList<BillItem> selectEntriesOfBill(int billId) {
 		ArrayList<BillItem> result = new ArrayList<BillItem>();
-		Cursor mCursor = db.query(true, BillItemTable.TABLE_NAME,
+		Cursor cursor = db.query(true, BillItemTable.TABLE_NAME,
 				BillItemTable.allColumns,
 				BillItemTable.KEY_DOCUMENTID + "=" + billId, null, null, null, null, null);
-		if (mCursor == null || !mCursor.moveToFirst())
+		if (cursor == null || !cursor.moveToFirst())
 			return result;
 		do
-			result.add(inflate(mCursor));
-		while (mCursor.moveToNext());
+			result.add(inflate(cursor));
+		while (cursor.moveToNext());
+		cursor.close();
 		return result;
 	}
 
 	public BillItem getById(int billItemId) throws SQLException {
-		Cursor mCursor = db.query(true, BillItemTable.TABLE_NAME,
+		Cursor cursor = db.query(true, BillItemTable.TABLE_NAME,
 				BillItemTable.allColumns,
 				BillItemTable.KEY_ROWID + "=" + billItemId, null, null, null, null, null);
-		if (mCursor == null || !mCursor.moveToFirst())
+		if (cursor == null || !cursor.moveToFirst())
 			throw new SQLException(String.format("BillItem with id = %d not found in repository", billItemId));
 
-		return inflate(mCursor);
+		BillItem result = inflate(cursor);
+		cursor.close();
+		return result;
 	}
 
 	private BillItem inflate(Cursor mCursor) {

@@ -38,7 +38,7 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_document);
 
-		billRepository = new BillRepository(this);
+		billRepository = ((ElbaApplication) getApplication()).getBillRepository();
 		Bundle extras = getIntent().getExtras();
 		if (extras == null)
 			bill = billRepository.create();
@@ -59,6 +59,7 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 	@Override
 	protected void onPause() {
 		super.onPause();
+		bill = billRepository.getById(bill.id);
 		gather(bill);
 		billRepository.save(bill);
 	}
@@ -77,7 +78,7 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 	private void scatter(Bill bill) {
 		numberInput.setText(bill.number);
 		sumInput.setText(LocaleService.getInstance().formatCurrency(sum(bill)));
-		((EditText) findViewById(R.id.contractorName)).setText(bill.contractorName);
+		((TextView) findViewById(R.id.contractorName)).setText(bill.customerName);
 		dateView.setText(bill.getFormattedDate());
 		InterestingAdapter adapter = new InterestingAdapter(this, R.layout.edit_document_list_item, bill.billItems);
 		list.setAdapter(adapter);
@@ -93,7 +94,6 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 	private void gather(Bill bill) {
 		bill.number = numberInput.getText().toString();
 		bill.sum = LocaleService.getInstance().parseCurrency(sumInput.getText().toString());
-		bill.contractorName = ((EditText) findViewById(R.id.contractorName)).getText().toString();
 	}
 
 	public void pickDate(View view) {
@@ -144,10 +144,9 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 		startActivity(intent);
 	}
 
-	@Override
-	protected void onDestroy() {
-		if (billRepository != null)
-			billRepository.close();
-		super.onDestroy();
+	public void chooseCustomer(View view) {
+		Intent intent = new Intent(this, ChooseCustomerActivity.class);
+		intent.putExtra("documentId", bill.id);
+		startActivity(intent);
 	}
 }

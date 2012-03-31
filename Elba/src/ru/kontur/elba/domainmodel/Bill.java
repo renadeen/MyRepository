@@ -16,7 +16,7 @@ public class Bill implements Entity {
     public String number;
     public BigDecimal sum;
     public Date date;
-    public String contractorName;
+    public String customerName;
 	public ArrayList<BillItem> billItems;
 
 //    public HashMap<String, String> toHashMap(){
