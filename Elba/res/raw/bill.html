@@ -300,12 +300,12 @@
 			</div>
 			{{/me}}
 			<div class="bill">
-				{{#bill}}
+				{{#document}}
 				<h1>Счет на оплату № {{ number }} от {{ FormattedDate }}</h1>
-				{{/bill}}
+				{{/document}}
 				<div class="contrgentCredentials">
 					<p><label>Поставщик:</label> {{me.getLegalName}}</p>
-			{{#bill}}
+			{{#document}}
 					<p><label>Покупатель:</label> {{ contractorName }}</p>
 				</div>
 
@@ -329,7 +329,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<!--{{#billItems}}-->
+						<!--{{#documentItems}}-->
 						<tr>
 							<td class="numberCell">{{-index}}</td>
 							<td class="textCell">
@@ -340,7 +340,7 @@
 							<td class="numericCell">{{price}}</td>
 							<td class="numericCell">{{sum}}</td>
 						</tr>
-						<!-- {{/billItems}} -->
+						<!-- {{/documentItems}} -->
 					</tbody>
 					<tfoot>
 						<tr>
@@ -369,7 +369,7 @@
 						</tr>
 					</tfoot>
 				</table>
-			{{/bill}}
+			{{/document}}
 			</div>
 
 			<div class="summary">

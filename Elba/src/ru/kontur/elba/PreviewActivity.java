@@ -11,7 +11,7 @@ import android.webkit.WebView;
 import com.samskivert.mustache.Mustache;
 import com.samskivert.mustache.Template;
 import ru.kontur.elba.core.NumberService;
-import ru.kontur.elba.domainmodel.Bill;
+import ru.kontur.elba.domainmodel.Document;
 import ru.kontur.elba.domainmodel.Organization;
 
 import java.io.*;
@@ -26,9 +26,9 @@ public class PreviewActivity extends Activity {
 
 		Thread.currentThread().setUncaughtExceptionHandler(new UnexpectedException(this));
 		super.onCreate(savedInstanceState);
-		BillRepository billRepository = ((ElbaApplication) getApplication()).getBillRepository();
-		Bill bill = billRepository.getById(getIntent().getIntExtra("documentId", 0));
-		String result = renderTemplate(getTemplate(), bill);
+		DocumentRepository documentRepository = ((ElbaApplication) getApplication()).getBillRepository();
+		Document document = documentRepository.getById(getIntent().getIntExtra("documentId", 0));
+		String result = renderTemplate(getTemplate(), document);
 		view = new WebView(this);
 //		saveToFile(result, "huj.htm");
 		view.loadDataWithBaseURL("about:blank", result, "text/html", "UTF-8", null);
@@ -87,14 +87,14 @@ public class PreviewActivity extends Activity {
 		}
 	}
 
-	private String renderTemplate(String template, final Bill bill) {
+	private String renderTemplate(String template, final Document document) {
 		Template compile = Mustache.compiler().defaultValue("huj").compile(template);
 		final Organization organization = new OrganizationRepository().Get();
 		final PrintData printData = new PrintData() {{
-			sumInWords = NumberService.getInstance().sumInWords(bill.sum);
+			sumInWords = NumberService.getInstance().sumInWords(document.sum);
 		}};
 		return compile.execute(new HashMap<String, Object>() {{
-			put("bill", bill);
+			put("document", document);
 			put("me", organization);
 			put("printData", printData);
 		}});

@@ -11,15 +11,16 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import ru.kontur.elba.datalayer.BillTable;
+import ru.kontur.elba.datalayer.DocumentTable;
 import ru.kontur.elba.datalayer.LocaleService;
+import ru.kontur.elba.domainmodel.DocumentType;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
 public class DocumentListActivity extends Activity implements AdapterView.OnItemClickListener {
 	private static final int ADD_KEY = 1;
-	private BillRepository billRepository;
+	private DocumentRepository documentRepository;
 	private ListView list;
 
 	@Override
@@ -30,7 +31,7 @@ public class DocumentListActivity extends Activity implements AdapterView.OnItem
 		list.setOnItemClickListener(this);
 		list.setEmptyView(findViewById(android.R.id.empty));
 		list.addHeaderView(getLayoutInflater().inflate(R.layout.header, list, false));
-		billRepository = ((ElbaApplication) getApplication()).getBillRepository();
+		documentRepository = ((ElbaApplication) getApplication()).getBillRepository();
 		refresh();
 	}
 
@@ -42,7 +43,7 @@ public class DocumentListActivity extends Activity implements AdapterView.OnItem
 
 	public int extractId(int position) {
 		Cursor item = (Cursor) list.getAdapter().getItem(position);
-		return item.getInt(item.getColumnIndex(BillTable.KEY_ROWID));
+		return item.getInt(item.getColumnIndex(DocumentTable.KEY_ROWID));
 	}
 
 	@Override
@@ -54,9 +55,9 @@ public class DocumentListActivity extends Activity implements AdapterView.OnItem
 	private void refresh() {
 		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
 				R.layout.document_list_item,
-				billRepository.getCursor(),
-				new String[]{BillTable.KEY_NUMBER, BillTable.KEY_SUM, BillTable.KEY_DATE, BillTable.KEY_CUSTOMERNAME},
-				new int[]{R.id.number, R.id.sum, R.id.date, R.id.contractorName});
+				documentRepository.getCursor(),
+				new String[]{DocumentTable.KEY_TYPE, DocumentTable.KEY_NUMBER, DocumentTable.KEY_SUM, DocumentTable.KEY_DATE, DocumentTable.KEY_CUSTOMERNAME},
+				new int[]{R.id.type, R.id.number, R.id.sum, R.id.date, R.id.contractorName});
 		adapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
 			public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
 				if (view.getId() == R.id.date) {
@@ -66,6 +67,10 @@ public class DocumentListActivity extends Activity implements AdapterView.OnItem
 				if (view.getId() == R.id.sum) {
 					((TextView) view).setText(LocaleService.getInstance()
 							.formatCurrency(BigDecimal.valueOf(cursor.getDouble(columnIndex))));
+					return true;
+				}
+				if (view.getId() == R.id.type) {
+					((TextView) view).setText(DocumentType.values()[cursor.getInt(columnIndex)].toString());
 					return true;
 				}
 				return false;

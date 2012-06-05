@@ -5,7 +5,7 @@ import ru.kontur.elba.datalayer.Entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class BillItem implements Serializable, Entity {
+public class DocumentItem implements Serializable, Entity {
 	public int id;
 	public int documentId;
 	public String name;

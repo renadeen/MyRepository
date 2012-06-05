@@ -10,22 +10,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import ru.kontur.elba.datalayer.LocaleService;
-import ru.kontur.elba.domainmodel.Bill;
+import ru.kontur.elba.domainmodel.Document;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
 public class EditDocumentActivity extends Activity implements AdapterView.OnItemClickListener {
 
-	private Bill bill;
-	private BillRepository billRepository;
+	private Document document;
+	private DocumentRepository documentRepository;
 	private static final int DATE_DIALOG_ID = 0;
 	private static final int ADD_ITEM = 0;
 	private static final int EDIT_ITEM = 1;
 	private final DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
 		public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-			bill.date = new Date(year - 1900, month, day); // ппц гавнище этот java.util.date
-			dateView.setText(bill.getFormattedDate());
+			document.date = new Date(year - 1900, month, day); // ппц гавнище этот java.util.date
+			dateView.setText(document.getFormattedDate());
 		}
 	};
 	private EditText numberInput;
@@ -38,12 +38,12 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_document);
 
-		billRepository = ((ElbaApplication) getApplication()).getBillRepository();
+		documentRepository = ((ElbaApplication) getApplication()).getBillRepository();
 		Bundle extras = getIntent().getExtras();
 		if (extras == null)
-			bill = billRepository.create();
+			document = documentRepository.create();
 		else
-			bill = billRepository.getById(extras.getInt("documentId"));
+			document = documentRepository.getById(extras.getInt("documentId"));
 
 		list = (ListView) findViewById(android.R.id.list);
 		list.setOnItemClickListener(this);
@@ -53,15 +53,15 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 		sumInput = (TextView) findViewById(R.id.sum);
 		dateView = (TextView) findViewById(R.id.date);
 
-		scatter(bill);
+		scatter(document);
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		bill = billRepository.getById(bill.id);
-		gather(bill);
-		billRepository.save(bill);
+		document = documentRepository.getById(document.id);
+		gather(document);
+		documentRepository.save(document);
 	}
 
 	@Override
@@ -71,29 +71,29 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 
 	public void addItem(View view) {
 		Intent intent = new Intent(this, EditDocumentEntryActivity.class);
-		intent.putExtra("billId", bill.id);
+		intent.putExtra("billId", document.id);
 		startActivityForResult(intent, ADD_ITEM);
 	}
 
-	private void scatter(Bill bill) {
-		numberInput.setText(bill.number);
-		sumInput.setText(LocaleService.getInstance().formatCurrency(sum(bill)));
-		((TextView) findViewById(R.id.contractorName)).setText(bill.customerName);
-		dateView.setText(bill.getFormattedDate());
-		InterestingAdapter adapter = new InterestingAdapter(this, R.layout.edit_document_list_item, bill.billItems);
+	private void scatter(Document document) {
+		numberInput.setText(document.number);
+		sumInput.setText(LocaleService.getInstance().formatCurrency(sum(document)));
+		((TextView) findViewById(R.id.contractorName)).setText(document.customerName);
+		dateView.setText(document.getFormattedDate());
+		InterestingAdapter adapter = new InterestingAdapter(this, R.layout.edit_document_list_item, document.documentItems);
 		list.setAdapter(adapter);
 	}
 
-	private BigDecimal sum(Bill bill) {
+	private BigDecimal sum(Document document) {
 		BigDecimal sum = BigDecimal.ZERO;
-		for (int i = 0; i < bill.billItems.size(); i++)
-			sum = sum.add(bill.billItems.get(i).price.multiply(bill.billItems.get(i).quantity));
+		for (int i = 0; i < document.documentItems.size(); i++)
+			sum = sum.add(document.documentItems.get(i).price.multiply(document.documentItems.get(i).quantity));
 		return sum;
 	}
 
-	private void gather(Bill bill) {
-		bill.number = numberInput.getText().toString();
-		bill.sum = LocaleService.getInstance().parseCurrency(sumInput.getText().toString());
+	private void gather(Document document) {
+		document.number = numberInput.getText().toString();
+		document.sum = LocaleService.getInstance().parseCurrency(sumInput.getText().toString());
 	}
 
 	public void pickDate(View view) {
@@ -102,7 +102,7 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 
 	@Override
 	protected Dialog onCreateDialog(int id) {
-		Date date = bill.date != null ? bill.date : new Date();
+		Date date = document.date != null ? document.date : new Date();
 		if (id == DATE_DIALOG_ID)
 			return new DatePickerDialog(this, dateSetListener, date.getYear() + 1900, date.getMonth(), date.getDate());
 		return null;
@@ -117,8 +117,8 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		bill = billRepository.getById(bill.id);
-		scatter(bill);
+		document = documentRepository.getById(document.id);
+		scatter(document);
 	}
 
 	@Override
@@ -140,13 +140,13 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 
 	private void showPreview() {
 		Intent intent = new Intent(this, PreviewActivity.class);
-		intent.putExtra("documentId", bill.id);
+		intent.putExtra("documentId", document.id);
 		startActivity(intent);
 	}
 
 	public void chooseCustomer(View view) {
 		Intent intent = new Intent(this, ChooseCustomerActivity.class);
-		intent.putExtra("documentId", bill.id);
+		intent.putExtra("documentId", document.id);
 		startActivity(intent);
 	}
 }

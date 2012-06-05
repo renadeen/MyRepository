@@ -1,7 +1,7 @@
 package ru.kontur.elba.datalayer;
 
-public class BillItemTable implements Table{
-	public static final String TABLE_NAME = "BillItem";
+public class DocumentItemTable implements Table{
+	public static final String TABLE_NAME = "DocumentItem";
 	public static final String KEY_ROWID = "_id";
 	public static final String KEY_DOCUMENTID = "documentId";
 	public static final String KEY_NAME = "name";
@@ -9,7 +9,7 @@ public class BillItemTable implements Table{
 	public static final String KEY_UNIT = "unit";
 	public static final String KEY_PRICE = "price";
 	public static final String KEY_SUM = "sum";
-	public static final String BILLITEM_CREATE = "create table BillItem ("
+	public static final String DOCUMENTITEM_CREATE = "create table DocumentItem ("
 			+ "_id integer primary key autoincrement, "
 			+ KEY_DOCUMENTID + " int not null, "
 			+ KEY_NAME + " text null, "

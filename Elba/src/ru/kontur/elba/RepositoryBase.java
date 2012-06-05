@@ -31,9 +31,9 @@ public abstract class RepositoryBase<T extends Entity> {
 	public void save(T entity) {
 		ContentValues values = createContentValues(entity);
 //		if (bill.id == 0)
-//			db.insertOrThrow(BillTable.TABLE_NAME, null, values);
+//			db.insertOrThrow(DocumentTable.TABLE_NAME, null, values);
 		if(db.update(table.tableName(), values, table.keyColumn() + "=" + entity.getId(), null) == 0)
-			throw new Error("can't update " +table.tableName() + "\nentityId=" + entity.getId() + "\nvalues=" + values.toString());
+			throw new Error("can't update " + table.tableName() + "\nentityId=" + entity.getId() + "\nvalues=" + values.toString());
 	}
 
 	public boolean delete(T entity) {

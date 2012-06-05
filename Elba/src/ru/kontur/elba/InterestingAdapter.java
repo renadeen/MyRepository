@@ -6,35 +6,35 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import ru.kontur.elba.datalayer.LocaleService;
-import ru.kontur.elba.domainmodel.BillItem;
+import ru.kontur.elba.domainmodel.DocumentItem;
 
 import java.util.List;
 
 public class InterestingAdapter extends BaseAdapter {
 	private Activity activity;
 	private int itemLayout;
-	private List<BillItem> billItems;
+	private List<DocumentItem> documentItems;
 
-	public InterestingAdapter(Activity context, int itemLayout, List<BillItem> billItems) {
+	public InterestingAdapter(Activity context, int itemLayout, List<DocumentItem> documentItems) {
 		this.activity = context;
 		this.itemLayout = itemLayout;
-		this.billItems = billItems;
+		this.documentItems = documentItems;
 	}
 
-	public void reload(List<BillItem> items) {
-		billItems = items;
+	public void reload(List<DocumentItem> items) {
+		documentItems = items;
 	}
 
 	public int getCount() {
-		return billItems.size();
+		return documentItems.size();
 	}
 
 	public Object getItem(int i) {
-		return billItems.get(i);
+		return documentItems.get(i);
 	}
 
 	public long getItemId(int i) {
-		return billItems.get(i).id;
+		return documentItems.get(i).id;
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -42,7 +42,7 @@ public class InterestingAdapter extends BaseAdapter {
 		TextView name = (TextView) view.findViewById(R.id.name);
 		TextView details = (TextView) view.findViewById(R.id.details);
 		TextView sum = (TextView) view.findViewById(R.id.sum);
-		BillItem item = billItems.get(position);
+		DocumentItem item = documentItems.get(position);
 		name.setText(item.name);
 		details.setText(String.format("%1$s %2$s x %3$s р.", item.quantity, item.unit, item.price));
 		sum.setText(LocaleService.getInstance().formatCurrency(item.quantity.multiply(item.price)) + " р.");

@@ -14,23 +14,18 @@ public class ElbaDatabase extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase database) {
-		database.execSQL(BillTable.BILL_CREATE);
-		database.execSQL(BillItemTable.BILLITEM_CREATE);
+		database.execSQL(DocumentTable.DOCUMENT_CREATE);
+		database.execSQL(DocumentItemTable.DOCUMENTITEM_CREATE);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-//		Log.w(Bill.class.getName(), "Upgrading database from version "
-//				+ oldVersion + " to " + newVersion
-//				+ ", which will destroy all old data");
-//		database.execSQL("DROP TABLE IF EXISTS Bill");
-//		onCreate(database);
 	}
 
 	public void recreate() {
 		SQLiteDatabase database = getWritableDatabase();
-		database.execSQL("DROP TABLE IF EXISTS Bill");
-		database.execSQL("DROP TABLE IF EXISTS BillItem");
+		database.execSQL("DROP TABLE IF EXISTS Document");
+		database.execSQL("DROP TABLE IF EXISTS DocumentItem");
 		onCreate(database);
 	}
 }

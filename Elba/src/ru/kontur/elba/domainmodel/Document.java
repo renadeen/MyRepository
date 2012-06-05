@@ -7,17 +7,18 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Bill implements Entity {
-	public Bill() {
-		billItems = new ArrayList<BillItem>();
+public class Document implements Entity {
+	public Document() {
+		documentItems = new ArrayList<DocumentItem>();
 	}
 
 	public int id;
+    public DocumentType type;
     public String number;
     public BigDecimal sum;
     public Date date;
     public String customerName;
-	public ArrayList<BillItem> billItems;
+	public ArrayList<DocumentItem> documentItems;
 
 //    public HashMap<String, String> toHashMap(){
 //		HashMap<String, String> result = new HashMap<String, String>();

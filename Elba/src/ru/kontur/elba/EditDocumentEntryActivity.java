@@ -5,15 +5,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import ru.kontur.elba.datalayer.LocaleService;
-import ru.kontur.elba.domainmodel.BillItem;
+import ru.kontur.elba.domainmodel.DocumentItem;
 
 public class EditDocumentEntryActivity extends Activity {
 	private EditText nameInput;
 	private EditText quantityInput;
 	private EditText unitInput;
 	private EditText priceInput;
-	private BillItem billItem;
-	private BillItemRepository billItemRepository;
+	private DocumentItem documentItem;
+	private DocumentItemRepository documentItemRepository;
 	private boolean removed;
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -25,39 +25,39 @@ public class EditDocumentEntryActivity extends Activity {
 		unitInput = (EditText) findViewById(R.id.unit);
 		priceInput = (EditText) findViewById(R.id.price);
 
-		billItemRepository = ((ElbaApplication) getApplication()).getBillItemRepository();
+		documentItemRepository = ((ElbaApplication) getApplication()).getBillItemRepository();
 		Bundle extras = getIntent().getExtras();
 		if (extras.containsKey("billItemId"))
-			billItem = billItemRepository.getById(extras.getInt("billItemId"));
+			documentItem = documentItemRepository.getById(extras.getInt("billItemId"));
 		else
-			billItem = billItemRepository.create(extras.getInt("billId"));
-		scatter(billItem);
+			documentItem = documentItemRepository.create(extras.getInt("billId"));
+		scatter(documentItem);
 	}
 
-	public void scatter(BillItem billItem) {
-		nameInput.setText(billItem.name);
-		quantityInput.setText(LocaleService.getInstance().formatCurrency(billItem.quantity));
-		unitInput.setText(billItem.unit);
-		priceInput.setText(LocaleService.getInstance().formatCurrency(billItem.price));
+	public void scatter(DocumentItem documentItem) {
+		nameInput.setText(documentItem.name);
+		quantityInput.setText(LocaleService.getInstance().formatCurrency(documentItem.quantity));
+		unitInput.setText(documentItem.unit);
+		priceInput.setText(LocaleService.getInstance().formatCurrency(documentItem.price));
 	}
 
-	public void gather(BillItem billItem) {
-		billItem.name = nameInput.getText().toString();
-		billItem.quantity = LocaleService.getInstance().parseCurrency(quantityInput.getText().toString());
-		billItem.unit = unitInput.getText().toString();
-		billItem.price = LocaleService.getInstance().parseCurrency(priceInput.getText().toString());
+	public void gather(DocumentItem documentItem) {
+		documentItem.name = nameInput.getText().toString();
+		documentItem.quantity = LocaleService.getInstance().parseCurrency(quantityInput.getText().toString());
+		documentItem.unit = unitInput.getText().toString();
+		documentItem.price = LocaleService.getInstance().parseCurrency(priceInput.getText().toString());
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
 		if (removed) return;
-		gather(billItem);
-		billItemRepository.save(billItem);
+		gather(documentItem);
+		documentItemRepository.save(documentItem);
 	}
 
 	public void remove(View view) {
-		billItemRepository.delete(billItem);
+		documentItemRepository.delete(documentItem);
 		removed = true;
 		finish();
 	}

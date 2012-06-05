@@ -1,9 +1,6 @@
 package ru.kontur.elba;
 
 import android.app.Application;
-import ru.kontur.elba.BillItemRepository;
-import ru.kontur.elba.BillRepository;
-import ru.kontur.elba.UnexpectedException;
 
 import java.util.HashMap;
 
@@ -14,15 +11,15 @@ public class ElbaApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		Thread.currentThread().setUncaughtExceptionHandler(new UnexpectedException(this));
-		addServices(new BillRepository(this), new BillItemRepository(this));
+		addServices(new DocumentRepository(this), new DocumentItemRepository(this));
 	}
 
-	public BillRepository getBillRepository() {
-		return get(BillRepository.class);
+	public DocumentRepository getBillRepository() {
+		return get(DocumentRepository.class);
 	}
 
-	public BillItemRepository getBillItemRepository() {
-		return get(BillItemRepository.class);
+	public DocumentItemRepository getBillItemRepository() {
+		return get(DocumentItemRepository.class);
 	}
 
 	private void addServices(Object... services) {
