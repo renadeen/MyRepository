@@ -40,8 +40,9 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 
 		documentRepository = ((ElbaApplication) getApplication()).getBillRepository();
 		Bundle extras = getIntent().getExtras();
-		if (extras == null)
-			document = documentRepository.create();
+
+		if (extras.containsKey("documentType"))
+			document = documentRepository.create(extras.getInt("documentType"));
 		else
 			document = documentRepository.getById(extras.getInt("documentId"));
 

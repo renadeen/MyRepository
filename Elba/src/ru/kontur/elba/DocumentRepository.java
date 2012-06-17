@@ -20,15 +20,15 @@ public class DocumentRepository extends RepositoryBase<Document> {
 		documentTypes = DocumentType.values();
 	}
 
-	public Document create() {
-		return addEntity(newBill());
+	public Document create(int documentType) {
+		return addEntity(newDocument(documentType));
 	}
 
-	private Document newBill() {
+	private Document newDocument(int documentType) {
 		Document result = new Document();
 		result.date = new Date();
 		result.number = "1";
-		result.type = DocumentType.Bill;
+		result.type = DocumentType.values()[documentType];
 		return result;
 	}
 
@@ -50,7 +50,7 @@ public class DocumentRepository extends RepositoryBase<Document> {
 	}
 
 	private Document inflateBill(Cursor mCursor) {
-		Document document = newBill();
+		Document document = new Document();
 		document.id = mCursor.getInt(mCursor.getColumnIndexOrThrow(DocumentTable.KEY_ROWID));
 		document.type = documentTypes[mCursor.getInt(mCursor.getColumnIndexOrThrow(DocumentTable.KEY_TYPE))];
 		document.number = mCursor.getString(mCursor.getColumnIndexOrThrow(DocumentTable.KEY_NUMBER));

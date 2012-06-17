@@ -19,7 +19,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class DocumentListActivity extends Activity implements AdapterView.OnItemClickListener {
-	private static final int ADD_KEY = 1;
 	private DocumentRepository documentRepository;
 	private ListView list;
 
@@ -82,23 +81,20 @@ public class DocumentListActivity extends Activity implements AdapterView.OnItem
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean b = super.onCreateOptionsMenu(menu);
-		menu.add(0, ADD_KEY, 0, "Добавить документ");
+		for (DocumentType t : DocumentType.values())
+			menu.add(Menu.NONE, t.ordinal(), Menu.NONE, t.toString());
 		return b;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		boolean b = super.onOptionsItemSelected(item);
-		switch (item.getItemId()) {
-			case ADD_KEY:
-				createDocument();
-				return true;
-		}
-		return b;
+		createDocument(item.getItemId());
+		return true;
 	}
 
-	private void createDocument() {
+	private void createDocument(int documentType) {
 		Intent i = new Intent(this, EditDocumentActivity.class);
+		i.putExtra("documentType", documentType);
 		startActivityForResult(i, 1);
 	}
 }
