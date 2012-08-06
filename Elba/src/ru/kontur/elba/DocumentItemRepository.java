@@ -19,11 +19,8 @@ public class DocumentItemRepository extends RepositoryBase<DocumentItem> {
 		Cursor cursor = db.query(true, DocumentItemTable.TABLE_NAME,
 				DocumentItemTable.allColumns,
 				DocumentItemTable.KEY_DOCUMENTID + "=" + billId, null, null, null, null, null);
-		if (cursor == null || !cursor.moveToFirst())
-			return result;
-		do
+		while (cursor.moveToNext())
 			result.add(inflate(cursor));
-		while (cursor.moveToNext());
 		cursor.close();
 		return result;
 	}

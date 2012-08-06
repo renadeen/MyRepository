@@ -32,8 +32,9 @@ public class DocumentRepository extends RepositoryBase<Document> {
 		return result;
 	}
 
-	public Cursor getCursor() {
-		return db.query(DocumentTable.TABLE_NAME, DocumentTable.allColumns, null, null, null, null, null);
+	private Cursor getCursor(Integer documentType) {
+		String condition = documentType == null ? null : DocumentTable.KEY_TYPE + "=" + documentType;
+		return db.query(DocumentTable.TABLE_NAME, DocumentTable.allColumns, condition, null, null, null, null);
 	}
 
 	public Document getById(int billId) throws SQLException {
@@ -61,8 +62,12 @@ public class DocumentRepository extends RepositoryBase<Document> {
 	}
 
 	public Document[] selectAll() {
+		return selectByDocumentType(null);
+	}
+
+	public Document[] selectByDocumentType(DocumentType documentType) {
 		ArrayList<Document> result = new ArrayList<Document>();
-		Cursor cursor = getCursor();
+		Cursor cursor = getCursor(documentType == null ? null : documentType.ordinal());
 		while (cursor.moveToNext())
 			result.add(inflateBill(cursor));
 		cursor.close();

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.*;
 import ru.kontur.elba.datalayer.LocaleService;
 import ru.kontur.elba.domainmodel.Document;
+import ru.kontur.elba.domainmodel.DocumentItem;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -81,7 +82,16 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 		sumInput.setText(LocaleService.getInstance().formatCurrency(sum(document)));
 		((TextView) findViewById(R.id.contractorName)).setText(document.customerName);
 		dateView.setText(document.getFormattedDate());
-		InterestingAdapter adapter = new InterestingAdapter(this, R.layout.edit_document_list_item, document.documentItems);
+		DocumentItem[] a = new DocumentItem[document.documentItems.size()];
+		PlainAdapter adapter = new PlainAdapter<DocumentItem>(this, R.layout.edit_document_list_item, document.documentItems.toArray(a),
+				new PlainAdapter.ItemViewBinder<DocumentItem>() {
+					@Override
+					public void bindItemView(DocumentItem item, View itemView) {
+						((TextView) itemView.findViewById(R.id.name)).setText(item.name);
+						((TextView) itemView.findViewById(R.id.details)).setText(String.format("%1$s %2$s x %3$s р.", item.quantity, item.unit, item.price));
+						((TextView) itemView.findViewById(R.id.sum)).setText(LocaleService.getInstance().formatCurrency(item.quantity.multiply(item.price)) + " р.");
+					}
+				});
 		list.setAdapter(adapter);
 	}
 

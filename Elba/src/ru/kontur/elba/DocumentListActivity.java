@@ -1,26 +1,25 @@
 package ru.kontur.elba;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import ru.kontur.elba.datalayer.DocumentTable;
 import ru.kontur.elba.datalayer.LocaleService;
+import ru.kontur.elba.domainmodel.Document;
 import ru.kontur.elba.domainmodel.DocumentType;
-
-import java.math.BigDecimal;
-import java.util.Date;
 
 public class DocumentListActivity extends Activity implements AdapterView.OnItemClickListener {
 	private DocumentRepository documentRepository;
 	private ListView list;
+	private PlainAdapter<Document> adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +28,8 @@ public class DocumentListActivity extends Activity implements AdapterView.OnItem
 		list = (ListView) findViewById(android.R.id.list);
 		list.setOnItemClickListener(this);
 		list.setEmptyView(findViewById(android.R.id.empty));
-		list.addHeaderView(getLayoutInflater().inflate(R.layout.header, list, false));
 		documentRepository = ((ElbaApplication) getApplication()).getBillRepository();
-		refresh();
+		refresh(null);
 	}
 
 	public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -41,41 +39,53 @@ public class DocumentListActivity extends Activity implements AdapterView.OnItem
 	}
 
 	public int extractId(int position) {
-		Cursor item = (Cursor) list.getAdapter().getItem(position);
-		return item.getInt(item.getColumnIndex(DocumentTable.KEY_ROWID));
+		return ((Document) list.getAdapter().getItem(position)).getId();
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		refresh();
+		refresh(null);
 	}
 
-	private void refresh() {
-		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
-				R.layout.document_list_item,
-				documentRepository.getCursor(),
-				new String[]{DocumentTable.KEY_TYPE, DocumentTable.KEY_NUMBER, DocumentTable.KEY_SUM, DocumentTable.KEY_DATE, DocumentTable.KEY_CUSTOMERNAME},
-				new int[]{R.id.type, R.id.number, R.id.sum, R.id.date, R.id.contractorName});
-		adapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
-			public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-				if (view.getId() == R.id.date) {
-					((TextView) view).setText(LocaleService.getInstance().formatDate(new Date(cursor.getLong(columnIndex))));
-					return true;
-				}
-				if (view.getId() == R.id.sum) {
-					((TextView) view).setText(LocaleService.getInstance()
-							.formatCurrency(BigDecimal.valueOf(cursor.getDouble(columnIndex))));
-					return true;
-				}
-				if (view.getId() == R.id.type) {
-					((TextView) view).setText(DocumentType.values()[cursor.getInt(columnIndex)].toString());
-					return true;
-				}
-				return false;
-			}
-		});
-		list.setAdapter(adapter);
+	private void refresh(DocumentType type) {
+		if (adapter == null) {
+			adapter = new PlainAdapter<Document>(this,
+					R.layout.document_list_item,
+					documentRepository.selectByDocumentType(type),
+					new PlainAdapter.ItemViewBinder<Document>() {
+						@Override
+						public void bindItemView(Document item, View itemView) {
+							((TextView) itemView.findViewById(R.id.date)).setText(LocaleService.getInstance().formatDate(item.date));
+							((TextView) itemView.findViewById(R.id.sum)).setText(LocaleService.getInstance().formatCurrency(item.sum));
+							((TextView) itemView.findViewById(R.id.type)).setText(item.type.toString());
+							((TextView) itemView.findViewById(R.id.number)).setText(item.number);
+							((TextView) itemView.findViewById(R.id.contractorName)).setText(item.customerName);
+						}
+					});
+
+			list.setAdapter(adapter);
+		} else {
+			adapter.reload(documentRepository.selectByDocumentType(type));
+			adapter.notifyDataSetChanged();
+		}
+	}
+
+	public void createNew(View view) {
+		showDialog(0);
+	}
+
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		CharSequence[] items = new CharSequence[]{"Счёт", "Акт", "Накладная"};
+		return new AlertDialog.Builder(this)
+				.setItems(items, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialogInterface, int i) {
+						createDocument(i);
+					}
+				})
+				.create();
 	}
 
 	@Override
@@ -96,5 +106,11 @@ public class DocumentListActivity extends Activity implements AdapterView.OnItem
 		Intent i = new Intent(this, EditDocumentActivity.class);
 		i.putExtra("documentType", documentType);
 		startActivityForResult(i, 1);
+	}
+
+	public void filter(View view) {
+		String tag = (String) view.getTag();
+		DocumentType type = tag == null ? null : DocumentType.values()[Integer.parseInt(tag)];
+		refresh(type);
 	}
 }
