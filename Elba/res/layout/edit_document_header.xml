@@ -3,42 +3,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			  android:layout_width="fill_parent"
 			  android:layout_height="wrap_content"
-		android:orientation="vertical">
+			android:orientation="vertical"
+			android:paddingLeft="10dip"
+			android:paddingRight="10dip"
+		>
+	<TextView
+			style="@style/t_heading"
+			android:text="Данные счета"
+			/>
+	<View android:layout_height="2dp"
+		  android:layout_width="fill_parent"
+		  android:background="#999999"/>
+
 	<LinearLayout
 			android:layout_height="wrap_content"
 			android:layout_width="fill_parent"
 			android:orientation="horizontal"
 			>
-		<TextView
-				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:text="№ счета"
-				style="@style/t_emphasized"/>
 		<EditText
 				android:id="@+id/number"
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
-				android:layout_weight="1"/>
-	</LinearLayout>
-	<LinearLayout
-			android:layout_height="wrap_content"
-			android:layout_width="fill_parent"
-			android:orientation="horizontal"
-			>
-		<TextView
-				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:text="Дата "
-				style="@style/t_emphasized"/>
-		<TextView
+				android:layout_weight="1"
+				android:hint="№ документа"
+				/>
+		<Button
 				android:id="@+id/date"
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
-				/>
-		<Button
-				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:text="Изменить"
+				android:layout_weight="1"
+				style="@style/SpinnerLight"
 				android:onClick="pickDate"
 				/>
 	</LinearLayout>
@@ -61,5 +55,11 @@
 				android:layout_width="wrap_content"
 				android:layout_weight="1"/>
 	</LinearLayout>
-
+	<TextView
+			style="@style/t_heading"
+			android:text="Товары"
+			/>
+	<View android:layout_height="1dip"
+		  android:layout_width="fill_parent"
+		  android:background="#FF000000"/>
 </LinearLayout>

@@ -34,7 +34,7 @@ public class LocaleService {
 		currencyFormat.setMinimumFractionDigits(2);
 		DateFormatSymbols russSymbol = new DateFormatSymbols(russianLocale);
 		russSymbol.setMonths(russianGenetiveMonths);
-		russianDateFormat = new SimpleDateFormat("d MMMM yyyy года", russSymbol);
+		russianDateFormat = new SimpleDateFormat("d MMMM yyyy", russSymbol);
 	}
 
 	public String formatDate(Date date) {

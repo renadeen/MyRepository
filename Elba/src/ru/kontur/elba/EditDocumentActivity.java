@@ -26,12 +26,12 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 	private final DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
 		public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 			document.date = new Date(year - 1900, month, day); // ппц гавнище этот java.util.date
-			dateView.setText(document.getFormattedDate());
+			dateButton.setText(document.getFormattedDate());
 		}
 	};
 	private EditText numberInput;
 	private TextView sumInput;
-	private TextView dateView;
+	private Button dateButton;
 	private ListView list;
 
 	@Override
@@ -53,7 +53,7 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 		list.addFooterView(getLayoutInflater().inflate(R.layout.edit_document_footer, list, false));
 		numberInput = (EditText) findViewById(R.id.number);
 		sumInput = (TextView) findViewById(R.id.sum);
-		dateView = (TextView) findViewById(R.id.date);
+		dateButton = (Button) findViewById(R.id.date);
 
 		scatter(document);
 	}
@@ -81,7 +81,7 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 		numberInput.setText(document.number);
 		sumInput.setText(LocaleService.getInstance().formatCurrency(sum(document)));
 		((TextView) findViewById(R.id.contractorName)).setText(document.customerName);
-		dateView.setText(document.getFormattedDate());
+		dateButton.setText(document.getFormattedDate());
 		DocumentItem[] a = new DocumentItem[document.documentItems.size()];
 		PlainAdapter adapter = new PlainAdapter<DocumentItem>(this, R.layout.edit_document_list_item, document.documentItems.toArray(a),
 				new PlainAdapter.ItemViewBinder<DocumentItem>() {
