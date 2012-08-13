@@ -30,9 +30,10 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 		}
 	};
 	private EditText numberInput;
-	private TextView sumInput;
+	private TextView sumTextView;
 	private Button dateButton;
 	private ListView list;
+	private EditText customerName;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +53,9 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 		list.addHeaderView(getLayoutInflater().inflate(R.layout.edit_document_header, list, false));
 		list.addFooterView(getLayoutInflater().inflate(R.layout.edit_document_footer, list, false));
 		numberInput = (EditText) findViewById(R.id.number);
-		sumInput = (TextView) findViewById(R.id.sum);
+		sumTextView = (TextView) findViewById(R.id.sum);
 		dateButton = (Button) findViewById(R.id.date);
-
+		customerName = (EditText) findViewById(R.id.contractorName);
 		scatter(document);
 	}
 
@@ -79,8 +80,8 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 
 	private void scatter(Document document) {
 		numberInput.setText(document.number);
-		sumInput.setText(LocaleService.getInstance().formatCurrency(sum(document)));
-		((TextView) findViewById(R.id.contractorName)).setText(document.customerName);
+		sumTextView.setText(LocaleService.getInstance().formatCurrency(sum(document)));
+		customerName.setText(document.customerName);
 		dateButton.setText(document.getFormattedDate());
 		DocumentItem[] a = new DocumentItem[document.documentItems.size()];
 		PlainAdapter adapter = new PlainAdapter<DocumentItem>(this, R.layout.edit_document_list_item, document.documentItems.toArray(a),
@@ -104,7 +105,8 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 
 	private void gather(Document document) {
 		document.number = numberInput.getText().toString();
-		document.sum = LocaleService.getInstance().parseCurrency(sumInput.getText().toString());
+		document.customerName = customerName.getText().toString();
+		document.sum = LocaleService.getInstance().parseCurrency(sumTextView.getText().toString());
 	}
 
 	public void pickDate(View view) {

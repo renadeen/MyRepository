@@ -13,7 +13,7 @@
 			/>
 	<View android:layout_height="2dp"
 		  android:layout_width="fill_parent"
-		  android:background="#999999"/>
+		  android:background="#B2B2B2"/>
 
 	<LinearLayout
 			android:layout_height="wrap_content"
@@ -36,30 +36,16 @@
 				android:onClick="pickDate"
 				/>
 	</LinearLayout>
-	<LinearLayout
-			android:layout_height="wrap_content"
-			android:layout_width="fill_parent"
-			android:orientation="horizontal"
-			android:onClick="chooseCustomer"
-			android:clickable="true"
-			android:padding="5dp"
-			>
-		<TextView
-				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:text="Контрагент"
-				style="@style/t_emphasized"/>
-		<TextView
+	<EditText
 				android:id="@+id/contractorName"
 				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:layout_weight="1"/>
-	</LinearLayout>
+				android:layout_width="fill_parent"
+				android:hint="Клиент"/>
 	<TextView
 			style="@style/t_heading"
 			android:text="Товары"
 			/>
-	<View android:layout_height="1dip"
+	<View android:layout_height="2dip"
 		  android:layout_width="fill_parent"
-		  android:background="#FF000000"/>
+		  android:background="#B2B2B2"/>
 </LinearLayout>
