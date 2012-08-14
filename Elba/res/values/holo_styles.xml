@@ -2,6 +2,7 @@
 	<!--this themes only for Android <3.0 -->
 	<style name="HoloLight" parent="android:Theme.Light.NoTitleBar">
 		<item name="android:editTextStyle">@style/EditTextHoloLight</item>
+		<item name="android:autoCompleteTextViewStyle">@style/EditTextHoloLight</item>
 		<item name="android:listViewStyle">@style/ListViewStyle</item>
 	</style>
 
