@@ -9,8 +9,7 @@
 			android:layout_height="wrap_content"
 			android:layout_width="fill_parent"
 			android:orientation="horizontal"
-			android:id="@android:id/summary"
->
+			android:id="@android:id/summary">
 		<TextView
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
@@ -26,7 +25,9 @@
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="Список товаров пуст"
+			android:paddingTop="10dp"
 			android:id="@android:id/empty"
+			style="@style/t_optional"
 			/>
 
 	<Button
@@ -35,17 +36,18 @@
 			android:layout_width="wrap_content"
 			android:layout_alignParentRight="true"
 			android:layout_below="@android:id/summary"
+			android:background="@drawable/btn_ord"
+			android:textColor="#ffffff"
+			android:padding="10dp"
 			android:text="Добавить товар"
 			android:onClick="addItem"
 			 />
-
 	<Button
-			android:layout_height="wrap_content"
-			android:layout_width="fill_parent"
-			android:layout_alignParentRight="true"
+			android:layout_marginTop="40dp"
 			android:layout_below="@id/addEntry"
 			android:text="Сохранить документ"
 			android:onClick="save"
-			android:id="@+id/save"/>
+			android:id="@+id/save"
+			style="@style/btn_em"/>
 
 </RelativeLayout>

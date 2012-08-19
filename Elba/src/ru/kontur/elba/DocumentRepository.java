@@ -1,7 +1,6 @@
 package ru.kontur.elba;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import ru.kontur.elba.datalayer.DocumentTable;
@@ -14,9 +13,11 @@ import java.util.Date;
 public class DocumentRepository extends RepositoryBase<Document> {
 
 	private final DocumentType[] documentTypes;
+	private ElbaApplication application;
 
-	public DocumentRepository(Context context) {
-		super(context, new DocumentTable());
+	public DocumentRepository(ElbaApplication application) {
+		super(application, new DocumentTable());
+		this.application = application;
 		documentTypes = DocumentType.values();
 	}
 
@@ -45,7 +46,7 @@ public class DocumentRepository extends RepositoryBase<Document> {
 			throw new SQLException(String.format("Document with id = %d not found in repository", billId));
 		cursor.moveToFirst();
 		Document document = inflateBill(cursor);
-		document.documentItems = new DocumentItemRepository(context).selectEntriesOfBill(document.id);
+		document.documentItems = application.getBillItemRepository().selectEntriesOfBill(document.id);
 		cursor.close();
 		return document;
 	}

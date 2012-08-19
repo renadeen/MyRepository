@@ -79,13 +79,20 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 		return result.toArray(new String[0]);
 	}
 
+	public void save(View view) {
+		save();
+		finish();
+	}
+	private void save() {
+		document = documentRepository.getById(document.id);
+		gather(document);
+		documentRepository.save(document);
+	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		document = documentRepository.getById(document.id);
-		gather(document);
-		documentRepository.save(document);
+		save();
 	}
 
 	@Override

@@ -11,13 +11,11 @@ import ru.kontur.elba.datalayer.Table;
 import java.math.BigDecimal;
 
 public abstract class RepositoryBase<T extends Entity> {
-	protected Context context;
 	private Table table;
 	protected SQLiteDatabase db;
 	private ElbaDatabase dbHelper;
 
 	public RepositoryBase(Context context, Table table) {
-		this.context = context;
 		this.table = table;
 		dbHelper = new ElbaDatabase(context);
 		db = dbHelper.getWritableDatabase();
