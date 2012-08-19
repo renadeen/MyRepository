@@ -20,7 +20,6 @@
 		<activity android:name="ru.kontur.elba.EditDocumentActivity">
 		</activity>
 		<activity android:name="ru.kontur.elba.EditDocumentEntryActivity"/>
-		<activity android:name=".ChooseCustomerActivity"/>
 		<activity android:name="ru.kontur.elba.PreviewActivity">
 
 		</activity>

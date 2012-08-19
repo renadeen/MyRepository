@@ -14,6 +14,7 @@ import ru.kontur.elba.domainmodel.Document;
 import ru.kontur.elba.domainmodel.DocumentItem;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class EditDocumentActivity extends Activity implements AdapterView.OnItemClickListener {
@@ -33,7 +34,7 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 	private TextView sumTextView;
 	private Button dateButton;
 	private ListView list;
-	private EditText customerName;
+	private AutoCompleteTextView customerName;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,16 +49,36 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 		else
 			document = documentRepository.getById(extras.getInt("documentId"));
 
+		initListView();
+		numberInput = (EditText) findViewById(R.id.number);
+		sumTextView = (TextView) findViewById(R.id.sum);
+		dateButton = (Button) findViewById(R.id.date);
+		initCustomerAutocomplete();
+		scatter(document);
+	}
+
+	private void initListView() {
 		list = (ListView) findViewById(android.R.id.list);
 		list.setOnItemClickListener(this);
 		list.addHeaderView(getLayoutInflater().inflate(R.layout.edit_document_header, list, false));
 		list.addFooterView(getLayoutInflater().inflate(R.layout.edit_document_footer, list, false));
-		numberInput = (EditText) findViewById(R.id.number);
-		sumTextView = (TextView) findViewById(R.id.sum);
-		dateButton = (Button) findViewById(R.id.date);
-		customerName = (EditText) findViewById(R.id.contractorName);
-		scatter(document);
 	}
+
+	private void initCustomerAutocomplete() {
+		customerName = (AutoCompleteTextView) findViewById(R.id.customerName);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.choose_customer_item, getCustomers());
+		customerName.setText(documentRepository.getById(document.id).customerName);
+		customerName.setAdapter(adapter);
+	}
+
+	private String[] getCustomers() {
+		Document[] documents = documentRepository.selectAll();
+		ArrayList<String> result = new ArrayList<String>();
+		for (Document document : documents)
+			result.add(document.customerName);
+		return result.toArray(new String[0]);
+	}
+
 
 	@Override
 	protected void onPause() {
@@ -94,6 +115,13 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 					}
 				});
 		list.setAdapter(adapter);
+		if (document.documentItems.size() == 0) {
+			findViewById(android.R.id.empty).setVisibility(View.VISIBLE);
+			findViewById(android.R.id.summary).setVisibility(View.GONE);
+		} else {
+			findViewById(android.R.id.empty).setVisibility(View.GONE);
+			findViewById(android.R.id.summary).setVisibility(View.VISIBLE);
+		}
 	}
 
 	private BigDecimal sum(Document document) {
@@ -135,14 +163,14 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu){
+	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.document_menu, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem menuItem) {
-		switch (menuItem.getItemId()){
+		switch (menuItem.getItemId()) {
 			case R.id.preview:
 				showPreview();
 				return true;
@@ -153,12 +181,6 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 
 	private void showPreview() {
 		Intent intent = new Intent(this, PreviewActivity.class);
-		intent.putExtra("documentId", document.id);
-		startActivity(intent);
-	}
-
-	public void chooseCustomer(View view) {
-		Intent intent = new Intent(this, ChooseCustomerActivity.class);
 		intent.putExtra("documentId", document.id);
 		startActivity(intent);
 	}

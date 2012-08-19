@@ -36,11 +36,13 @@
 				android:onClick="pickDate"
 				/>
 	</LinearLayout>
-	<EditText
-				android:id="@+id/contractorName"
+	<AutoCompleteTextView
+				android:id="@+id/customerName"
 				android:layout_height="wrap_content"
 				android:layout_width="fill_parent"
-				android:hint="Клиент"/>
+				android:hint="Клиент"
+				android:completionThreshold="1"
+			/>
 	<TextView
 			style="@style/t_heading"
 			android:text="Товары"

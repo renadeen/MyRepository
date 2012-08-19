@@ -19,5 +19,8 @@
         <item name="android:paddingBottom">5dp</item>
     </style>
 
+	<style name="t_topLine">
+		<item name="android:paddingTop">10dp</item>
+	</style>
 
 </resources>

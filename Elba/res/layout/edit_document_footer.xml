@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			  android:layout_width="fill_parent"
 			  android:layout_height="wrap_content"
-		android:orientation="vertical">
+			  style="@style/t_topLine"
+		>
 	<LinearLayout
 			android:layout_height="wrap_content"
 			android:layout_width="fill_parent"
 			android:orientation="horizontal"
-			>
+			android:id="@android:id/summary"
+>
 		<TextView
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
@@ -20,10 +22,30 @@
 				android:layout_width="wrap_content"
 				/>
 	</LinearLayout>
+	<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="Список товаров пуст"
+			android:id="@android:id/empty"
+			/>
+
+	<Button
+			android:id="@+id/addEntry"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_alignParentRight="true"
+			android:layout_below="@android:id/summary"
+			android:text="Добавить товар"
+			android:onClick="addItem"
+			 />
+
 	<Button
 			android:layout_height="wrap_content"
 			android:layout_width="fill_parent"
-			android:text="Добавить товар или услугу "
-			android:onClick="addItem"/>
+			android:layout_alignParentRight="true"
+			android:layout_below="@id/addEntry"
+			android:text="Сохранить документ"
+			android:onClick="save"
+			android:id="@+id/save"/>
 
-</LinearLayout>
+</RelativeLayout>
