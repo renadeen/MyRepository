@@ -36,4 +36,13 @@
 		<item name="android:layout_width">fill_parent</item>
 		<item name="android:textColor">#ffffff</item>
 	</style>
+
+	<style name="heading_bar">
+		<item name="android:background">@drawable/heading_bar</item>
+		<item name="android:gravity">center</item>
+		<item name="android:layout_height">50dp</item>
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:textSize">22dp</item>
+		<item name="android:textColor">#ffffff</item>
+	</style>
 </resources>

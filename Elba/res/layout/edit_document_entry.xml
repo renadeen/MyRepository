@@ -3,97 +3,81 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			  android:layout_width="fill_parent"
 			  android:layout_height="fill_parent"
-			  android:orientation="vertical"
-		>
+			  android:orientation="vertical">
+	<TextView
+			style="@style/heading_bar"
+			android:text="Товар"/>
 	<LinearLayout
 			android:layout_height="wrap_content"
 			android:layout_width="fill_parent"
-			android:orientation="horizontal"
-			>
+			android:paddingLeft="10dp"
+			android:paddingRight="10dp"
+			android:orientation="vertical">
+
 		<TextView
-				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:text="Название"
-				style="@style/t_emphasized"/>
+				style="@style/t_heading"
+				android:text="Данные товара"
+				/>
+		<View android:layout_height="2dp"
+			  android:layout_width="fill_parent"
+			  android:background="#B2B2B2" />
 		<EditText
 				android:id="@+id/name"
 				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:layout_weight="1"/>
-	</LinearLayout>
-	<LinearLayout
-			android:layout_height="wrap_content"
-			android:layout_width="fill_parent"
-			android:orientation="horizontal"
-			>
-		<TextView
+				android:layout_width="fill_parent"
+				android:hint="Наименование товара"/>
+		<LinearLayout
 				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:text="Количество"
-				style="@style/t_emphasized"/>
-		<EditText
-				android:id="@+id/quantity"
-				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:layout_weight="1"
-				android:inputType="numberDecimal"/>
-	</LinearLayout>
-	<LinearLayout
-			android:layout_height="wrap_content"
-			android:layout_width="fill_parent"
-			android:orientation="horizontal"
-			>
-		<TextView
-				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:text="Ед. изм."
-				style="@style/t_emphasized"/>
-		<EditText
-				android:id="@+id/unit"
-				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:layout_weight="1"
-				android:inputType="text"/>
-	</LinearLayout>
-	<LinearLayout
-			android:layout_height="wrap_content"
-			android:layout_width="fill_parent"
-			android:orientation="horizontal"
-			>
-		<TextView
-				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:text="Цена"
-				style="@style/t_emphasized"/>
+				android:layout_width="fill_parent"
+				android:orientation="horizontal"
+				>
+			<EditText
+					android:id="@+id/quantity"
+					android:layout_height="wrap_content"
+					android:layout_width="0dp"
+					android:layout_weight="1"
+					android:inputType="numberDecimal"
+					android:hint="Количество"/>
+			<EditText
+					android:id="@+id/unit"
+					android:layout_height="wrap_content"
+					android:layout_width="0dp"
+					android:layout_weight="1"
+					android:inputType="text"
+					android:hint="Ед. измерения"/>
+		</LinearLayout>
 		<EditText
 				android:id="@+id/price"
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
-				android:layout_weight="1"
-				android:inputType="numberDecimal"/>
-	</LinearLayout>
-
-	<LinearLayout
-			android:layout_height="wrap_content"
-			android:layout_width="fill_parent"
-			android:orientation="horizontal"
-			>
-		<TextView
+				android:inputType="numberDecimal"
+				android:hint="Цена за штуку, р."/>
+		<LinearLayout
 				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:text="Итого"
-				style="@style/t_emphasized"/>
-		<TextView
-				android:id="@+id/sum"
-				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:inputType="numberDecimal"/>
-	</LinearLayout>
+				android:layout_width="fill_parent"
+				android:orientation="horizontal"
+				>
+			<TextView
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:text="Итого"
+					style="@style/t_emphasized"/>
+			<TextView
+					android:id="@+id/sum"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:inputType="numberDecimal"/>
+		</LinearLayout>
 
-	<Button
-			android:layout_height="wrap_content"
-			android:layout_width="fill_parent"
-			android:text="Удалить позицию"
-			android:onClick="remove"/>
+		<Button
+				android:layout_height="wrap_content"
+				android:layout_width="fill_parent"
+				android:text="Удалить позицию"
+				android:onClick="remove"/>
+		<Button
+				style="@style/btn_em"
+				android:text="Сохранить товар"
+				android:onClick="save"/>
+	</LinearLayout>
 
 </LinearLayout>

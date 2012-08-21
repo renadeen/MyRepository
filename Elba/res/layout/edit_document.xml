@@ -3,19 +3,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			  android:layout_width="fill_parent"
 			  android:layout_height="fill_parent"
-			  android:orientation="vertical"
->
+			  android:orientation="vertical">
 
 	<TextView
-			android:background="@drawable/heading_bar"
-			android:gravity="center"
-			android:layout_height="50dp"
-			android:layout_width="fill_parent"
-			android:layout_centerInParent="true"
-			android:text="Счет"
-			android:textSize="22dp"
-			android:textColor="#ffffff"
-			/>
+			style="@style/heading_bar"
+			android:text="Счет"	/>
 	<ListView
 			android:layout_height="fill_parent"
 			android:layout_width="fill_parent"
