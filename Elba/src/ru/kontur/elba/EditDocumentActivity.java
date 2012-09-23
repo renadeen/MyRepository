@@ -35,8 +35,9 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 	private Button dateButton;
 	private ListView list;
 	private AutoCompleteTextView customerName;
+    private boolean removed;
 
-	@Override
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_document);
@@ -91,9 +92,10 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 
 	@Override
 	protected void onPause() {
-		super.onPause();
-		save();
-	}
+        if(!removed)
+            save();
+        super.onPause();
+    }
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
@@ -181,12 +183,21 @@ public class EditDocumentActivity extends Activity implements AdapterView.OnItem
 			case R.id.preview:
 				showPreview();
 				return true;
+			case R.id.delete:
+				remove();
+				return true;
 			default:
 				return super.onOptionsItemSelected(menuItem);
 		}
 	}
 
-	private void showPreview() {
+    private void remove() {
+        documentRepository.delete(document);
+        removed = true;
+        finish();
+    }
+
+    private void showPreview() {
 		Intent intent = new Intent(this, PreviewActivity.class);
 		intent.putExtra("documentId", document.id);
 		startActivity(intent);

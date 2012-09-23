@@ -70,11 +70,6 @@
 		</LinearLayout>
 
 		<Button
-				android:layout_height="wrap_content"
-				android:layout_width="fill_parent"
-				android:text="Удалить позицию"
-				android:onClick="remove"/>
-		<Button
 				style="@style/btn_em"
 				android:text="Сохранить товар"
 				android:onClick="save"/>
