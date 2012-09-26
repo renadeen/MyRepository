@@ -1,54 +1,36 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			  android:layout_width="fill_parent"
-			  android:layout_height="fill_parent"
-			  android:orientation="vertical">
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+		 android:id="@android:id/tabhost"
+		 android:layout_width="fill_parent"
+		 android:layout_height="fill_parent">
 
-	<LinearLayout android:layout_height="wrap_content"
-				  android:layout_width="fill_parent">
-		<Button android:layout_height="wrap_content"
+	<LinearLayout android:layout_height="fill_parent"
+				  android:layout_width="fill_parent"
+				  android:orientation="vertical">
+		<TabWidget
+				android:id="@android:id/tabs"
+				android:layout_height="wrap_content"
+				android:layout_width="fill_parent"/>
+		<FrameLayout
+				android:id="@android:id/tabcontent"
+				android:layout_height="fill_parent"
+				android:layout_width="fill_parent">
+			<!--<TextView android:id="@android:id/list"-->
+					  <!--android:layout_height="wrap_content"-->
+					  <!--android:layout_width="wrap_content"-->
+					 	<!--android:text="lkjasdf;l"-->
+					<!--/>-->
+			<ListView
+					android:id="@android:id/list"
+					android:layout_width="fill_parent"
+					android:layout_height="fill_parent"
+					/>
+		</FrameLayout>
+		<TextView
+				android:id="@android:id/empty"
 				android:layout_width="wrap_content"
-				android:layout_weight="1"
-				android:text="Все"
-				android:onClick="filter"
-				/>
-		<Button android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:layout_weight="1"
-				android:text="Счета"
-				android:onClick="filter"
-				android:tag="0"
-				/>
-		<Button android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:layout_weight="1"
-				android:text="Новый"
-				android:onClick="createNew"
-				/>
-		<Button android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:layout_weight="1"
-				android:text="Акты"
-				android:onClick="filter"
-				android:tag="1"
-				/>
-		<Button android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:layout_weight="1"
-				android:text="Накладные"
-				android:tag="2"
-				android:onClick="filter"
-				/>
+				android:layout_height="wrap_content"
+				android:text="Здесь будут документы"/>
+
 	</LinearLayout>
-	<ListView
-			android:id="@android:id/list"
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			/>
-
-	<TextView
-			android:id="@android:id/empty"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Здесь будут документы"/>
-</LinearLayout>
+</TabHost>

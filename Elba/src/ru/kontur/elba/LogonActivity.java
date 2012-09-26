@@ -17,6 +17,10 @@ public class LogonActivity extends Activity {
     	startActivity(new Intent(this, DocumentListActivity.class));
     }
 
+    public void open(View view){
+    	startActivity(new Intent(this, TabActivity.class));
+    }
+
     public void recreateDatabase(View view){
     	new ElbaDatabase(this).recreate();
     }

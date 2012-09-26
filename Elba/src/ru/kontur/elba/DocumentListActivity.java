@@ -11,25 +11,50 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TabHost;
 import android.widget.TextView;
 import ru.kontur.elba.datalayer.LocaleService;
 import ru.kontur.elba.domainmodel.Document;
 import ru.kontur.elba.domainmodel.DocumentType;
 
-public class DocumentListActivity extends Activity implements AdapterView.OnItemClickListener {
+public class DocumentListActivity extends Activity implements AdapterView.OnItemClickListener, TabHost.OnTabChangeListener {
 	private DocumentRepository documentRepository;
 	private ListView list;
+	private TabHost tabHost;
 	private PlainAdapter<Document> adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		documentRepository = ((ElbaApplication) getApplication()).getBillRepository();
 		setContentView(R.layout.document_list);
+		initList();
+		initTabs();
+//		refresh(null);
+	}
+
+	private void initList() {
 		list = (ListView) findViewById(android.R.id.list);
 		list.setOnItemClickListener(this);
 		list.setEmptyView(findViewById(android.R.id.empty));
-		documentRepository = ((ElbaApplication) getApplication()).getBillRepository();
-		refresh(null);
+	}
+
+	private void initTabs() {
+		tabHost = (TabHost) findViewById(android.R.id.tabhost);
+		tabHost.setup();
+		tabHost.setOnTabChangedListener(this);
+		addTab("all", "Все");
+		addTab("0", "Счета");
+		addTab("createNew", "Новый");
+		addTab("1", "Акты");
+		addTab("2", "Накладные");
+	}
+
+	private void addTab(String tag, String label) {
+		TabHost.TabSpec tabSpec = tabHost.newTabSpec(tag);
+		tabSpec.setIndicator(label);
+		tabSpec.setContent(android.R.id.list);
+		tabHost.addTab(tabSpec);
 	}
 
 	public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -71,7 +96,7 @@ public class DocumentListActivity extends Activity implements AdapterView.OnItem
 		}
 	}
 
-	public void createNew(View view) {
+	private void createNew() {
 		showDialog(0);
 	}
 
@@ -108,9 +133,11 @@ public class DocumentListActivity extends Activity implements AdapterView.OnItem
 		startActivityForResult(i, 1);
 	}
 
-	public void filter(View view) {
-		String tag = (String) view.getTag();
-		DocumentType type = tag == null ? null : DocumentType.values()[Integer.parseInt(tag)];
-		refresh(type);
+	@Override
+	public void onTabChanged(String tag) {
+		if (tag == "createNew")
+			createNew();
+		else
+			refresh(tag == "all" ? null : DocumentType.values()[Integer.parseInt(tag)]);
 	}
 }
