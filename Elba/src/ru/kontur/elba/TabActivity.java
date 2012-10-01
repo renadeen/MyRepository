@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TabHost;
 import android.widget.Toast;
 
-public class TabActivity extends Activity implements TabHost.TabContentFactory {
+public class TabActivity extends Activity implements TabHost.OnTabChangeListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
@@ -14,17 +14,20 @@ public class TabActivity extends Activity implements TabHost.TabContentFactory {
 		setContentView(R.layout.tab);
 		TabHost tabHost = (TabHost) findViewById(android.R.id.tabhost);
 		// инициализация
+		tabHost.setOnTabChangedListener(this);
 		tabHost.setup();
 		TabHost.TabSpec tabSpec;
 		View v = getLayoutInflater().inflate(R.layout.tab_header, null);
+		View v2 = getLayoutInflater().inflate(R.layout.tab_header, null);
+		View v3 = getLayoutInflater().inflate(R.layout.tab_header2, null);
 
 		// создаем вкладку и указываем тег
 		tabSpec = tabHost.newTabSpec("tag1");
 		// название вкладки
-		tabSpec.setIndicator("Вкладка 1");
+		tabSpec.setIndicator(v);
 
 		// указываем id компонента из FrameLayout, он и станет содержимым
-		tabSpec.setContent(this);
+		tabSpec.setContent(R.id.tabContent);
 		// добавляем в корневой элемент
 		tabHost.addTab(tabSpec);
 		tabHost.setCurrentTabByTag("tag1");
@@ -32,14 +35,16 @@ public class TabActivity extends Activity implements TabHost.TabContentFactory {
 		// указываем название и картинку
 		// в нашем случае вместо картинки идет xml-файл,
 		// который определяет картинку по состоянию вкладки
-		tabSpec.setIndicator("Вкладка 2"); //, getResources().getDrawable(R.drawable.tab_icon_selector));
-		tabSpec.setContent(this);
+		tabSpec.setIndicator(v2); //, getResources().getDrawable(R.drawable.tab_icon_selector));
+		tabSpec.setContent(R.id.tabContent);
 		tabHost.addTab(tabSpec);
+
 		tabSpec = tabHost.newTabSpec("tag3");
 		// создаем View из layout-файла
 		// и устанавливаем его, как заголовок
-		tabSpec.setIndicator(v);
-		tabSpec.setContent(this);
+//	tabSpec.setIndicator(v);
+		tabSpec.setIndicator(v3);
+		tabSpec.setContent(R.id.tabContent);
 		tabHost.addTab(tabSpec);
 
 		// вторая вкладка будет выбрана по умолчанию
@@ -49,8 +54,7 @@ public class TabActivity extends Activity implements TabHost.TabContentFactory {
 	}
 
 	@Override
-	public View createTabContent(String s) {
+	public void onTabChanged(String s) {
 		Toast.makeText(getBaseContext(), "tabId = " + s, Toast.LENGTH_SHORT).show();
-		return findViewById(R.id.tvTab4);  //To change body of implemented methods use File | Settings | File Templates.
 	}
 }

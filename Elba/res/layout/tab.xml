@@ -11,7 +11,9 @@
 		<TabWidget
 				android:id="@android:id/tabs"
 				android:layout_width="fill_parent"
-				android:layout_height="wrap_content">
+				android:layout_height="60dp"
+				android:clipChildren="false"
+				>
 		</TabWidget>
 		<View android:layout_height="1dp"
 			  android:layout_width="fill_parent"
@@ -22,12 +24,15 @@
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content">
 
-			<TextView
-					android:id="@+id/tvTab4"
+			<Button xmlns:android="http://schemas.android.com/apk/res/android"
 					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="tab4">
-			</TextView>
+					android:layout_height="20dp"
+					                    android:id="@+id/tabContent"
+					android:text="tab"
+					>
+
+			</Button>
+
 		</FrameLayout>
 	</LinearLayout>
 </TabHost>
