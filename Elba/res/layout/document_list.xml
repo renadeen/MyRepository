@@ -50,8 +50,8 @@
                 android:onClick="filter"
 				/>
 	</LinearLayout>
-	<ListView
-			android:id="@android:id/list"
+	<eu.erikw.PullToRefreshListView
+			android:id="@+id/refreshableList"
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent"
 			/>

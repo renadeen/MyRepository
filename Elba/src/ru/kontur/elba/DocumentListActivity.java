@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,13 +15,14 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+import eu.erikw.PullToRefreshListView;
 import ru.kontur.elba.datalayer.LocaleService;
 import ru.kontur.elba.domainmodel.Document;
 import ru.kontur.elba.domainmodel.DocumentType;
 
-public class DocumentListActivity extends Activity implements AdapterView.OnItemClickListener {
+public class DocumentListActivity extends Activity implements AdapterView.OnItemClickListener, PullToRefreshListView.OnRefreshListener {
     private DocumentRepository documentRepository;
-    private ListView list;
+    private PullToRefreshListView list;
     private PlainAdapter<Document> adapter;
     private ToggleButton activeTab;
 
@@ -28,8 +30,9 @@ public class DocumentListActivity extends Activity implements AdapterView.OnItem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.document_list);
-        list = (ListView) findViewById(android.R.id.list);
+        list = (PullToRefreshListView) findViewById(R.id.refreshableList);
         list.setOnItemClickListener(this);
+        list.setOnRefreshListener(this);
         list.setEmptyView(findViewById(android.R.id.empty));
         documentRepository = ((ElbaApplication) getApplication()).getBillRepository();
         initTabs();
@@ -53,14 +56,10 @@ public class DocumentListActivity extends Activity implements AdapterView.OnItem
         }
     }
 
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
         Intent intent = new Intent(this, EditDocumentActivity.class);
-        intent.putExtra("documentId", extractId(i));
+        intent.putExtra("documentId", (int) id);
         startActivityForResult(intent, 1);
-    }
-
-    public int extractId(int position) {
-        return ((Document) list.getAdapter().getItem(position)).getId();
     }
 
     @Override
@@ -133,5 +132,9 @@ public class DocumentListActivity extends Activity implements AdapterView.OnItem
         String tag = (String) view.getTag();
         DocumentType type = tag == null ? null : DocumentType.values()[Integer.parseInt(tag)];
         refresh(type);
+    }
+
+    @Override
+    public void onRefresh() {
     }
 }
